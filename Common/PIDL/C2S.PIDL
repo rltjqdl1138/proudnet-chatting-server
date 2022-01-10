@@ -1,0 +1,4 @@
+﻿global C2S 3000
+{
+	Chat([in] string str);
+}
