@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading;
-using Nettention.Proud;
+﻿using Nettention.Proud;
 using Common;
 
 namespace Client
@@ -16,22 +14,12 @@ namespace Client
 
         static void InitializeStub()
         {
-            S2CStub.NotifyChat = (Nettention.Proud.HostID remote, Nettention.Proud.RmiContext rmiContext, String str) =>
-            {
-                lock (g_critSec)
-                {
-                    Console.Write("{0}\n", str);
-                }
-
-                return true;
-            };
 
         }
         static void InitializeHandler()
         {
             netClient.JoinServerCompleteHandler = (info, replyFromServer) =>
             {
-                // as here is running in 2nd thread, lock is needed for console print.
                 lock (g_critSec)
                 {
                     if (info.errorType == ErrorType.Ok)
@@ -41,45 +29,21 @@ namespace Client
                     }
                     else
                     {
-                        // connection failure.
                         Console.Write("Failed to connect server.\n");
                         Console.WriteLine("errorType = {0}, detailType = {1}, comment = {2}", info.errorType, info.detailType, info.comment);
                     }
                 }
             };
 
-            // set a routine for network disconnection.
             netClient.LeaveServerHandler = (errorInfo) =>
             {
-                // lock is needed as above.
                 lock (g_critSec)
                 {
-                    // show why disconnected.
                     Console.Write("OnLeaveServer: {0}\n", errorInfo.comment);
 
-                    // let main loop exit
                     isConnected = false;
                     keepWorkerThread = false;
                 }
-            };
-
-            // set a routine for P2P member join (P2P available)
-            netClient.P2PMemberJoinHandler = (memberHostID, groupHostID, memberCount, customField) =>
-            {
-                // lock is needed as above.
-                lock (g_critSec)
-                {
-                    // memberHostID = P2P connected client ID
-                    // groupHostID = P2P group ID where the P2P peer is in.
-                    Console.Write("[Client] P2P member {0} joined group {1}.\n", memberHostID, groupHostID);
-
-                }
-            };
-
-            // called when a P2P member left.
-            netClient.P2PMemberLeaveHandler = (memberHostID, groupHostID, memberCount) =>
-            {
-                Console.Write("[Client] P2P member {0} left group {1}.\n", memberHostID, groupHostID);
             };
 
         }
@@ -103,7 +67,6 @@ namespace Client
             InitializeStub();
             InitializeClientParameter();
 
-
             Thread workerThread = new Thread(() =>
             {
                 while (keepWorkerThread)
@@ -117,29 +80,10 @@ namespace Client
 
             while (keepWorkerThread)
             {
-                // get user input
                 string userInput = Console.ReadLine();
-                if(userInput == null)
-                {
-                    continue;
-                }
                 if (userInput == "q")
                 {
                     keepWorkerThread = false;
-                }
-                else
-                {
-                    if (isConnected)
-                    {
-                        lock (g_critSec)
-                        {
-                            C2SProxy.Chat(HostID.HostID_Server, RmiContext.ReliableSend, userInput);
-                        }
-                    }
-                    else
-                    {
-                        Console.Write("Not yet connected.\n");
-                    }
                 }
             }
             workerThread.Join();
