@@ -1,18 +1,39 @@
-﻿using System;
-using System.Threading;
-using Nettention.Proud;
-using Common;
-
-namespace Server
+﻿namespace Server
 {
     class Program
     {
-        static C2S.Stub C2SStub = new C2S.Stub();
-        static S2C.Proxy S2CProxy = new S2C.Proxy();
-
         static void Main()
         {
+            ServerLauncher server = new ServerLauncher();
 
+            try
+            {
+                server.ServerStart();
+
+                Console.Write("============================================\n");
+                Console.Write("\tServer started\n");
+                Console.Write("============================================\n");
+
+                while (server.RunLoop)
+                {
+                    if (Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Escape && Console.ReadKey(true).Key == ConsoleKey.Delete)
+                    {
+                        break;
+                    }
+
+                    System.Threading.Thread.Sleep(1000);
+                }
+
+                Console.Write("============================================\n");
+                Console.Write("\tServer Closed\n");
+                Console.Write("============================================\n");
+
+                server.Dispose();
+
+            }catch(Exception e)
+            {
+                Console.Write(e.ToString());
+            }
         }
     }
 }
