@@ -4,6 +4,7 @@ namespace Server
 {
     internal class Handler
     {
+        process.CommonProcess Process = new process.CommonProcess();
         public bool ConnectionRequestHandler(AddrPort clientAddr, ByteArray userDataFromClient, [NotNull] ByteArray reply)
         {
             reply = new ByteArray();
@@ -18,16 +19,16 @@ namespace Server
 
         public void ClientJoinHandler(NetClientInfo clientInfo)
         {
-            //string message = string.Format("[System] Host{0} enter", clientInfo.hostID);
-            //HostID[] others = Process.CommonProcess.GetHostIDs(clientInfo.hostID);
-            //Process.CommonProcess.NotifyChat(others, RmiContext.ReliableSend, message);
+            string message = string.Format("Host{0} entered", clientInfo.hostID);
+            Console.WriteLine(message);
+            Process.SystemChat(message);
         }
 
         public void ClientLeaveHandler(NetClientInfo clientInfo, ErrorInfo errorinfo, ByteArray comment)
         {
-            //string message = string.Format("[System] Host{0} left", clientInfo.hostID);
-            //HostID[] others = Process.CommonProcess.GetHostIDs(clientInfo.hostID);
-            //Process.CommonProcess.NotifyChat(others, RmiContext.ReliableSend, message);
+            string message = string.Format("Host{0} leaved", clientInfo.hostID);
+            Console.WriteLine(message);
+            Process.SystemChat(message);
         }
 
         public void ErrorHandler(ErrorInfo errorInfo)

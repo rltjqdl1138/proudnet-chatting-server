@@ -1,4 +1,5 @@
 ﻿global S2C 3000
 {
 	NotifyChat([in] string str);
+	SystemChat([in] string str);
 }

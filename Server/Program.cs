@@ -10,9 +10,7 @@
             {
                 server.ServerStart();
 
-                Console.Write("============================================\n");
-                Console.Write("\tServer started\n");
-                Console.Write("============================================\n");
+                Console.Write("Server started\n");
 
                 while (server.RunLoop)
                 {
@@ -24,9 +22,7 @@
                     System.Threading.Thread.Sleep(1000);
                 }
 
-                Console.Write("============================================\n");
-                Console.Write("\tServer Closed\n");
-                Console.Write("============================================\n");
+                Console.Write("Server Closed\n");
 
                 server.Dispose();
 
