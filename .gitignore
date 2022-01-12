@@ -350,6 +350,6 @@ MigrationBackup/
 .ionide/
 
 
-Common/PIDL/*.cs
-Client/RMI/*
-Server/RMI/*
+ChattingCommon/PIDL/*.cs
+ChattingClient/RMI/*
+ChattingServer/RMI/*

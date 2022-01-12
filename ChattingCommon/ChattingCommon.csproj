@@ -8,10 +8,10 @@
 
   <ItemGroup>
     <Reference Include="ProudDotNetClient">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Nettention\ProudNet\lib\DotNet\ProudDotNetClient.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Nettention\ProudNet\lib\DotNet\ProudDotNetClient.dll</HintPath>
     </Reference>
     <Reference Include="ProudDotNetServer">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Nettention\ProudNet\lib\DotNet\ProudDotNetServer.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Nettention\ProudNet\lib\DotNet\ProudDotNetServer.dll</HintPath>
     </Reference>
   </ItemGroup>
 
