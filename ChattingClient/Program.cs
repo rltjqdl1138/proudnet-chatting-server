@@ -15,7 +15,22 @@ namespace Client
 
         static void InitializeStub()
         {
-
+            S2CStub.SystemChat = (HostID remote, RmiContext rmiContext, string str) =>
+            {
+                lock (g_critSec)
+                {
+                    Console.WriteLine("[System] {0}", str);
+                }
+                return true;
+            };
+            S2CStub.NotifyChat = (HostID remote, RmiContext rmiContext, string str) =>
+            {
+                lock (g_critSec)
+                {
+                    Console.WriteLine("> {0}", str);
+                }
+                return true;
+            };
         }
         static void InitializeHandler()
         {
@@ -82,11 +97,17 @@ namespace Client
             while (keepWorkerThread)
             {
                 string userInput = Console.ReadLine();
+
                 if (userInput == "q")
                 {
                     keepWorkerThread = false;
                 }
+                else
+                {
+                    C2SProxy.Chat(HostID.HostID_Server, RmiContext.ReliableSend, userInput);
+                }
             }
+
             workerThread.Join();
             netClient.Disconnect();
         }

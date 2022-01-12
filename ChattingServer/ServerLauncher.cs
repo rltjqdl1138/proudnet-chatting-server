@@ -35,7 +35,10 @@ namespace ChattingServer
         }
         public void InitialzieServerParameter()
         {
-
+            var parameter = new StartServerParameter();
+            parameter.protocolVersion = new Nettention.Proud.Guid(Vars.m_Version);
+            parameter.tcpPorts.Add(Vars.m_serverPort);
+            NetServer.Start(parameter);
         }
         public void ServerStart()
         {

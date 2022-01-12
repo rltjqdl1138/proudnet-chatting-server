@@ -1,5 +1,5 @@
-﻿// C2S.PIDL
-global S2C 3000
+﻿global S2C 3000
 {
 	NotifyChat([in] string str);
+	SystemChat([in] string str);
 }
