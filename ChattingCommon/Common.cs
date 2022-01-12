@@ -1,4 +1,6 @@
-﻿namespace ChattingCommon
+﻿using Nettention.Proud;
+
+namespace ChattingCommon
 {
 	public class Vars
 	{
@@ -8,6 +10,23 @@
 		static Vars()
 		{
 
+		}
+	}
+	public class User
+    {
+		static int UserId = 0;
+		public HostID HostId { get; set; }
+		public string UserName { get; set; }
+		public int UserID { get; set; }
+		public User(string UserName, HostID HostId)
+		{
+			UserID = ++UserId;
+			this.UserName = UserName;
+			this.HostId = HostId;
+		}
+		public User()
+        {
+			UserName = "Unknown";
 		}
 	}
 }

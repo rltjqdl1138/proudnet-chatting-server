@@ -1,5 +1,7 @@
-﻿global S2C 3000
+﻿[marshaler(cs) = ChattingCommon.Marshaler]
+global S2C 3000
 {
-	NotifyChat([in] string str);
+	NotifyChat([in]string UserName,[in] string str);
 	SystemChat([in] string str);
+	ResponseLogin([in] ChattingCommon.User user);
 }

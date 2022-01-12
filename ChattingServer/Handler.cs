@@ -21,16 +21,14 @@ namespace ChattingServer
 
         public void ClientJoinHandler(NetClientInfo clientInfo)
         {
-            string message = string.Format("Host{0} entered", clientInfo.hostID);
+            string message = string.Format("Host{0} connected", clientInfo.hostID);
             Console.WriteLine(message);
-            Process.SystemChat(message);
         }
 
         public void ClientLeaveHandler(NetClientInfo clientInfo, ErrorInfo errorinfo, ByteArray comment)
         {
-            string message = string.Format("Host{0} leaved", clientInfo.hostID);
+            string message = string.Format("Host{0} disconnected", clientInfo.hostID);
             Console.WriteLine(message);
-            Process.SystemChat(message);
         }
 
         public void ErrorHandler(ErrorInfo errorInfo)

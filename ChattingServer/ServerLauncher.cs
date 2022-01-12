@@ -1,5 +1,6 @@
 ﻿using ChattingCommon;
 using Nettention.Proud;
+using System.Collections.Concurrent;
 
 namespace ChattingServer
 {
@@ -12,6 +13,7 @@ namespace ChattingServer
 
         Handler Handler = new Handler();
         process.CommonProcess Process = new process.CommonProcess();
+        public static ConcurrentDictionary<int, User> UserList { get; } = new ConcurrentDictionary<int, User>();
 
         public void InitializeStub()
         {
