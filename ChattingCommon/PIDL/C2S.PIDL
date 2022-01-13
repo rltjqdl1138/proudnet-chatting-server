@@ -1,6 +1,6 @@
 ﻿[marshaler(cs) = ChattingCommon.Marshaler]
 global C2S 2000
 {
-	Chat([in] int UserId,[in] string str);
+	Chat([in] string str);
 	Login([in] String UserName);
 }

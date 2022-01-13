@@ -121,7 +121,7 @@ namespace Client
                     if (userInput == "q")
                         keepWorkerThread = false;
                     else
-                        C2SProxy.Chat(HostID.HostID_Server, RmiContext.ReliableSend, me.UserID, userInput);
+                        C2SProxy.Chat(HostID.HostID_Server, RmiContext.ReliableSend, userInput);
                 }
                 else {
                     Console.WriteLine("Login...");

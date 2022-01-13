@@ -16,9 +16,9 @@ namespace ChattingServer.process
             ServerLauncher.NetServer.AttachStub(C2SStub);
         }
         // Chat 함수 로직 작성
-        static public bool Chat(HostID remote, RmiContext rmiContext, int UserID, string str)
+        static public bool Chat(HostID remote, RmiContext rmiContext, string str)
         {
-            ServerLauncher.UserList.TryGetValue(UserID, out User user);
+            ServerLauncher.UserList.TryGetValue(remote, out User user);
             Console.WriteLine("{0}: {1}",user.UserName, str);
             S2CProxy.NotifyChat(ServerLauncher.NetServer.GetClientHostIDs(), rmiContext, user.UserName, str);
             return true;
@@ -29,7 +29,7 @@ namespace ChattingServer.process
             User user = new User(UserName, remote);
 
             // 유저 등록
-            ServerLauncher.UserList.TryAdd(user.UserID, user);
+            ServerLauncher.UserList.TryAdd(remote, user);
             
             S2CProxy.ResponseLogin(user.HostId, rmiContext, user);
             S2CProxy.SystemChat(ServerLauncher.NetServer.GetClientHostIDs(), RmiContext.ReliableSend, message);

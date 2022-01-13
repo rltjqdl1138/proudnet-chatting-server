@@ -13,7 +13,7 @@ namespace ChattingServer
 
         Handler Handler = new Handler();
         process.CommonProcess Process = new process.CommonProcess();
-        public static ConcurrentDictionary<int, User> UserList { get; } = new ConcurrentDictionary<int, User>();
+        public static ConcurrentDictionary<HostID, User> UserList { get; } = new ConcurrentDictionary<HostID, User>();
 
         public void InitializeStub()
         {
