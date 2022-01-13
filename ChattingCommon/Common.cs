@@ -1,4 +1,5 @@
 ﻿using Nettention.Proud;
+using System.Collections.Concurrent;
 
 namespace ChattingCommon
 {
@@ -18,15 +19,18 @@ namespace ChattingCommon
 		public HostID HostId { get; set; }
 		public string UserName { get; set; }
 		public int UserID { get; set; }
+		public int RoomNumber { get; set; }
 		public User(string UserName, HostID HostId)
 		{
 			UserID = ++UserId;
 			this.UserName = UserName;
 			this.HostId = HostId;
+			RoomNumber = 0;
 		}
 		public User()
         {
 			UserName = "Unknown";
+			RoomNumber = 0;
 		}
 	}
 }
